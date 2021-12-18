@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>F# Fable bindings for Appwrite</Description>
+    <PackageProjectUrl>https://github.com/davedawkins/Fable.Appwrite</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/davedawkins/Fable.Appwrite</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/davedawkins/Fable.Appwrite/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageTags>fsharp;fable;appwrite</PackageTags>
+    <Authors>David Dawkins</Authors>
+    <Version>1.0.1</Version>
+    <PackageVersion>1.0.1-beta-001</PackageVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DefineConstants>$(DefineConstants);FABLE_COMPILER;</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AppWriteSdk.fs" />
+  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Fable.Promise" Version="2.*" />
+    </ItemGroup>
+  <!-- Add source files to "fable" folder in Nuget package -->
+  <ItemGroup>
+    <Content Include="*.fsproj; **\*.fs; **\*.fsi;" PackagePath="fable\" />
+  </ItemGroup>
+</Project>
