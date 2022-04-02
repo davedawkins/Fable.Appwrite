@@ -2,4 +2,6 @@
 
 Appwrite bindings for Fable (F#)
 
+Updated for Appwrite v13
+
 See project https://github.com/davedawkins/doodletoy for example usage and basic documentation.
