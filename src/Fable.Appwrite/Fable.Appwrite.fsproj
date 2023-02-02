@@ -14,10 +14,25 @@
     <DefineConstants>$(DefineConstants);FABLE_COMPILER;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AppWriteSdk.fs" />
+    <Compile Include="Role.fs" />
+    <Compile Include="Permission.fs" />
+    <Compile Include="Query.fs" />
+    <Compile Include="Models.fs" />
+    <Compile Include="Client.fs" />
+    <Compile Include="Service.fs" />
+    <Compile Include="Databases.fs" />
+    <Compile Include="Account.fs" />
+    <Compile Include="Teams.fs" />
+    <Compile Include="Functions.fs" />
+    <Compile Include="Storage.fs" />
+    <Compile Include="Avatars.fs" />
+    <Compile Include="Graphql.fs" />
+    <Compile Include="Locale.fs" />
+    <Compile Include="AppwriteSdk.fs" />
   </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Fable.Promise" Version="2.*" />
+        <PackageReference Include="Fable.Browser.WebSocket" Version="1.*" />
     </ItemGroup>
   <!-- Add source files to "fable" folder in Nuget package -->
   <ItemGroup>
