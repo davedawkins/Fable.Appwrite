@@ -3,10 +3,7 @@ namespace AppwriteSdk
 
 #nowarn "3390" // disable warnings for invalid XML comments
 
-open System
 open Fable.Core
-open Fable.Core.JS
-open Fable.Core.JsInterop
 
 //++ Edits
 //type Error = System.Exception
@@ -28,13 +25,28 @@ type [<AllowNullLiteral>] IExports =
 
 [<AutoOpen>]
 module Exports =
-    let Appwrite : IExports = importAll("appwrite")
+    let Appwrite : IExports = JsInterop.importAll("appwrite")
+
+
+module JsHelpers =
+
+    [<Emit("(() => { var x = {...$0}; $1.forEach( k => delete x[k] ); return x; })()")>]
+    let omit(data : 'T, keys : string array ) : 'T = jsNative
+
+    [<Emit("Object.keys($0)")>]
+    let jsKeys( data : 'T ) : string array = jsNative
+
+    let omitInternals( data : 'T ) :'T =
+        let keys = jsKeys(data) |> Array.filter( fun k -> k.[0] = '$' )
+        omit( data, keys )
 
 [<AutoOpen>]
 module Ext =
     type AppwriteSdk.Models.Document with
         [<Emit("$0['$id']")>]
         member this._id : string = jsNative
+
+        static member Omit<'D when 'D :> Models.Document>( data : 'D ) = JsHelpers.omitInternals( data )
 
     type Models.Account<'P when 'P :> Models.Preferences> with
         [<Emit("$0['$id']")>]
