@@ -23,14 +23,14 @@ type [<AllowNullLiteral>] Query =
 type [<AllowNullLiteral>] QueryStatic =
     [<EmitConstructor>] abstract Create: unit -> Query
     abstract equal: attribute:string * value : QueryTypes -> string
-    abstract lessThan: obj with get, set
-    abstract lessThanEqual: obj with get, set
-    abstract greaterThan: obj with get, set
-    abstract greaterThanEqual: obj with get, set
-    abstract search: obj with get, set
-    abstract orderDesc: obj with get, set
-    abstract orderAsc: obj with get, set
-    abstract cursorAfter: obj with get, set
-    abstract cursorBefore: obj with get, set
-    abstract limit: obj with get, set
-    abstract offset: obj with get, set
+    abstract lessThan: attribute:string * value : QueryTypes -> string
+    abstract lessThanEqual: attribute:string * value : QueryTypes -> string
+    abstract greaterThan: attribute:string * value : QueryTypes -> string
+    abstract greaterThanEqual: attribute:string * value : QueryTypes -> string
+    abstract search: attribute:string * value : QueryTypes -> string
+    abstract orderDesc: attribute:string -> string
+    abstract orderAsc: attribute:string -> string
+    abstract cursorAfter: docId:string -> string
+    abstract cursorBefore: docId:string -> string
+    abstract limit: limit:int -> string
+    abstract offset: offset:int -> string

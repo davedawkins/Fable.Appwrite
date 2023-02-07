@@ -1,3 +1,6 @@
+### 3.0.1
+- Fixes to Query
+
 ### 3.0.0
 - Support for Appwrite SDK 10.2 (breaking changes in Appwrite API)
 
