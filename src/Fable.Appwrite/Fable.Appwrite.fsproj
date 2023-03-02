@@ -8,8 +8,8 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;appwrite</PackageTags>
         <Authors>David Dawkins</Authors>
-        <Version>3.0.1</Version>
-        <PackageVersion>3.0.1</PackageVersion>
+        <Version>3.0.2</Version>
+        <PackageVersion>3.0.2</PackageVersion>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <DefineConstants>$(DefineConstants);FABLE_COMPILER;</DefineConstants>
     </PropertyGroup>
