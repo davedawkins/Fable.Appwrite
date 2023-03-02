@@ -11,7 +11,6 @@ type [<AllowNullLiteral>] Error = interface end
 type URL = interface end
 type File = interface end
 
-
 type [<AllowNullLiteral>] IExports =
     abstract AppwriteException: AppwriteSdk.Client.AppwriteExceptionStatic
     abstract Query: Query.QueryStatic
@@ -21,12 +20,11 @@ type [<AllowNullLiteral>] IExports =
     abstract Databases: Databases.DatabasesStatic
     abstract Permission: Permission.PermissionStatic
     abstract Role: Role.RoleStatic
-
+    abstract ID: ID.IDStatic
 
 [<AutoOpen>]
 module Exports =
     let Appwrite : IExports = JsInterop.importAll("appwrite")
-
 
 module JsHelpers =
 
@@ -42,13 +40,44 @@ module JsHelpers =
 
 [<AutoOpen>]
 module Ext =
+
+    type AppwriteSdk.Databases.Databases with
+
+        /// Get all document chunks into a single array
+        member db.ListAll<'T when 'T :> Models.Document>( databaseId : string, collectionId : string, filter : string array ) : JS.Promise<'T array> =
+            promise {
+                let mutable chunks : ('T array) list = []
+                let mutable received = 0
+                let mutable total = 999 // Yuck. Allow initial iteration (received < total)
+
+                while received < total do
+                    let! chunk =
+                        db.listDocuments(databaseId, collectionId,
+                        [|
+                            Appwrite.Query.limit(25)
+                            Appwrite.Query.offset(received)
+                        |] |> Array.append filter
+                    ) //: JS.Promise<ListDocumentsResult<'T>>
+
+                    if (received = 0) then
+                        total <- int(chunk.total)
+
+                    received <- received + chunk.documents.Length
+                    chunks <- chunk.documents :: chunks
+
+                return chunks |> Array.concat
+            }
+
     type AppwriteSdk.Models.Document with
         [<Emit("$0['$id']")>]
         member this._id : string = jsNative
 
         static member Omit<'D when 'D :> Models.Document>( data : 'D ) = JsHelpers.omitInternals( data )
 
+
     type Models.Account<'P when 'P :> Models.Preferences> with
         [<Emit("$0['$id']")>]
         member this._id : string = jsNative
+
+
 

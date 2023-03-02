@@ -21,6 +21,7 @@ open PublishUtils
 open System
 open System.IO
 open Fake.Core
+open Fake.Core.TargetOperators
 
 // Boilerplate for adapter
 System.Environment.GetCommandLineArgs()
@@ -33,13 +34,31 @@ System.Environment.GetCommandLineArgs()
 // ---------------------------------------------------
 // -- Your targets and regular FAKE code goes below --
 
-Target.create "publish" (fun _ ->
+Target.create "clean" (fun _ ->
+    run "dotnet fable clean --yes"
+    run "dotnet clean src"
+)
+
+Target.create "pack" (fun _ ->
+    run "dotnet fable clean --yes"
+    run "dotnet pack -c Release src/Fable.Appwrite"
+)
+
+Target.create "publish:package" (fun _ ->
     let pkg = "Fable.Appwrite"
     pushNuget ("src" </> pkg </> pkg + ".fsproj") [] doNothing
 )
 
 Target.create "usage" (fun _ ->
-    Console.WriteLine("Targets: publish")
+    Console.WriteLine("Targets: publish:package, clean, pack")
 )
+
+"clean"
+    ==> "publish:package"
+    |> ignore
+
+"clean"
+    ==> "pack"
+    |> ignore
 
 Target.runOrDefault "usage"

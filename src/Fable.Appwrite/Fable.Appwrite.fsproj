@@ -1,41 +1,56 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>F# Fable bindings for Appwrite</Description>
-    <PackageProjectUrl>https://github.com/davedawkins/Fable.Appwrite</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/davedawkins/Fable.Appwrite</RepositoryUrl>
-    <PackageLicenseUrl>https://github.com/davedawkins/Fable.Appwrite/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <PackageTags>fsharp;fable;appwrite</PackageTags>
-    <Authors>David Dawkins</Authors>
-    <Version>3.0.0</Version>
-    <PackageVersion>3.0.0</PackageVersion>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DefineConstants>$(DefineConstants);FABLE_COMPILER;</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Role.fs" />
-    <Compile Include="Permission.fs" />
-    <Compile Include="Query.fs" />
-    <Compile Include="Models.fs" />
-    <Compile Include="Client.fs" />
-    <Compile Include="Service.fs" />
-    <Compile Include="Databases.fs" />
-    <Compile Include="Account.fs" />
-    <Compile Include="Teams.fs" />
-    <Compile Include="Functions.fs" />
-    <Compile Include="Storage.fs" />
-    <Compile Include="Avatars.fs" />
-    <Compile Include="Graphql.fs" />
-    <Compile Include="Locale.fs" />
-    <Compile Include="AppwriteSdk.fs" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Description>F# Fable bindings for Appwrite</Description>
+        <PackageProjectUrl>https://github.com/davedawkins/Fable.Appwrite</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/davedawkins/Fable.Appwrite</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/davedawkins/Fable.Appwrite/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <PackageTags>fsharp;fable;appwrite</PackageTags>
+        <Authors>David Dawkins</Authors>
+        <Version>3.0.1</Version>
+        <PackageVersion>3.0.1</PackageVersion>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DefineConstants>$(DefineConstants);FABLE_COMPILER;</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Role.fs" />
+        <Compile Include="Permission.fs" />
+        <Compile Include="Query.fs" />
+        <Compile Include="Models.fs" />
+        <Compile Include="Client.fs" />
+        <Compile Include="Service.fs" />
+        <Compile Include="Databases.fs" />
+        <Compile Include="Account.fs" />
+        <Compile Include="Teams.fs" />
+        <Compile Include="Functions.fs" />
+        <Compile Include="Storage.fs" />
+        <Compile Include="Avatars.fs" />
+        <Compile Include="Graphql.fs" />
+        <Compile Include="Locale.fs" />
+        <Compile Include="ID.fs" />
+        <Compile Include="AppwriteSdk.fs" />
+    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Fable.Promise" Version="2.*" />
         <PackageReference Include="Fable.Browser.WebSocket" Version="1.*" />
     </ItemGroup>
-  <!-- Add source files to "fable" folder in Nuget package -->
-  <ItemGroup>
-    <Content Include="*.fsproj; **\*.fs; **\*.fsi;" PackagePath="fable\" />
-  </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All"/>
+        <!-- <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" /> -->
+    </ItemGroup>
+
+    <!-- Add source files to "fable" folder in Nuget package -->
+    <ItemGroup>
+        <Content Include="*.fsproj; **\*.fs;" PackagePath="fable" />
+    </ItemGroup>
+
+    <Target Name="ReallyClean" AfterTargets="Clean">
+        <!-- Remove obj folder -->
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+        <!-- Remove bin folder -->
+        <RemoveDir Directories="$(BaseOutputPath)" />
+    </Target>
 </Project>
