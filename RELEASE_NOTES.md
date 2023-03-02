@@ -1,3 +1,6 @@
+### 3.0.3
+- Clean before publish package
+
 ### 3.0.2
 - Add ID
 - Add ListAll helper to handle chunking

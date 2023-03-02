@@ -36,7 +36,7 @@ System.Environment.GetCommandLineArgs()
 
 Target.create "clean" (fun _ ->
     run "dotnet fable clean --yes"
-    run "dotnet clean src"
+    run "dotnet clean src/Fable.Appwrite"
 )
 
 Target.create "pack" (fun _ ->
